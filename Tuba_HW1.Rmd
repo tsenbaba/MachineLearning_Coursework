@@ -1,0 +1,95 @@
+---
+title: "MATH 748 Homework Assignment 1"
+author: "Tuba Senbabaoglu"
+date: "10 September 2020"
+output:
+  pdf_document: default
+  html_document:
+    fig_height: 4
+    highlight: pygments
+    theme: spacelab
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+# DO NOT ALTER CODE IN THIS CHUNK
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+setwd("~/Desktop/Math748/HW1/")
+```
+
+* * *
+
+## Conceptual Questions
+
+
+#### 1a: Oil Company
+
+Supervised Learning - Classification. (Response variable is categorical (either successful to find oil or fail))
+
+#### 1b: Dietician
+
+Supervised Learning - Regression (Weight change of clients are response variable which are numerical quantities)
+
+#### 1c: Online discussion website
+
+Unsupervised Learning - Clustering (Grouping object/Cluster is to group same type of questions)
+
+
+#### 2: Suppose that you work for Costco and you have access to all members’ grocery purchase history. You want to predict whether a customer is going to reorder an item or not (response variable). What features do you think would be useful?
+
+I look at customers' repetitive purchases in a certain period of time. (let’s say the last 6 or 12 months). I use supervised learning - classification. The response variable is categorical which repurchases an item or not. I use input variables such as date (some items are demanded during a certain season), quantity of item and frequency of reorder. 
+
+If I can't apply supervised learning-classification for some reason, I look for customers who have the same purchasing behaviour. I group people with similar interests and tastes. A customer shops like people in the group he/she belongs to. This is the collaborative filtering technique which is widely used by Amazon.
+
+#### 3: One situation in your life where machine learning might be of benefit.
+
+I have an emotional eating problem which is to reach for food at late (it is after 9 pm for me) to suppress and soothe negative feelings. I would like to make a classification to predict whether I want to eat late at night or not according to my mood. 
+Response variable is categorical which eating late or not. Input variables are the situations which cause me to feel negative. For example weather conditions, conflict with someone in my family, upcoming deadlines, work/school stress (it can be a rating), hormones fluctuation etc. If the model predicts that I may emotionally eat that day, I will try to stop myself.
+
+
+
+* * *
+
+## Applied Questions
+
+
+* * *
+
+```{r question4}
+# Question 4
+#Example 1
+data.spam <- read.csv("../Data/spam.data.txt",header=F,sep = " ")
+colnames(data.spam)[58]="Y"
+
+#Example 2
+data.prostate=read.table("../Data/prostate.data.txt",header=T)
+pairs(data.prostate[,1:9])
+
+#Example 3
+data.zip=read.table("../Data/zip.train",header=F)
+colnames(data.zip)[1]="Y"
+
+```
+
+
+
+```{r question5}
+# Question 5
+#read data
+auto <- read.csv("../Data/Auto.csv")
+#find the place of missing data
+w <- which(auto == "?", arr.ind = TRUE)
+remove.rows <- unique(w[,1])
+auto2 <- auto[-remove.rows,]
+#numerical summery of variable “weight”
+summary(auto2$weight)
+#scatterplot of weight vs mpg
+plot(auto2$weight, auto2$mpg,main = "Weight vs mpg",xlab="weight", ylab="mpg")
+#Identify the name, mpg, weight for the subjects whose mpg is above 40
+auto2[auto2$mpg > 40,c("name","mpg","weight")]
+
+
+```
+
